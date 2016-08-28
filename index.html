@@ -4,4 +4,11 @@
 <script src="index.js"></script>
 <body>
   <canvas id="canvas"></canvas>
+  <script>
+    window.addEventListener('load', function () {
+      window.canvas = document.getElementById('canvas')
+      window.ctx = window.canvas.getContext('2d')
+      window.main(window.ctx, window.canvas)
+    })
+  </script>
 </body>

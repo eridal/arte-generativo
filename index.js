@@ -1,14 +1,10 @@
 
-window.addEventListener('load', function () {
+function main (ctx, canvas) {
 
-  var canvas = document.getElementById('canvas')
-  var ctx = canvas.getContext('2d')
+  canvas.width = 640
+  canvas.height = 480
 
-  window.ctx = ctx
+  ctx.fillStyle = 'red'
+  ctx.fillRect(100, 100, 200, 200)
 
-  main(ctx)
-})
-
-function main (ctx) {
-  console.log(ctx)
 }
