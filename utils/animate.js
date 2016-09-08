@@ -8,17 +8,14 @@
     window.requestAnimationFrame(step)
 
     function step (time) {
-
-      var progress = time - start
-      var isNew = progress > delay
-      if (isNew) {
-        progress -= delay
+      var result;
+      var changed = (time - start) > delay
+      if (changed) {
         start = time
+        result = update()
       }
 
-      var result = update(isNew, progress / delay)
-
-      if (hasNext(result)) {
+      if (!changed || hasNext(result)) {
         window.requestAnimationFrame(step)
       }
     }
