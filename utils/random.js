@@ -6,10 +6,15 @@
  * @return number
  */
 function random (min, max) {
-  if (arguments.length === 1) {
-    max = min
-    min = 0
+
+  if (arguments.length === 0) {
+    return Math.random()
   }
+
+  if (arguments.length === 1) {
+    return Math.random() * min
+  }
+
   return min + Math.random() * (max - min)
 }
 
@@ -51,3 +56,8 @@ function randomValue (array) {
   var i = randomIndex(array)
   return array[i]
 }
+
+random.sign = randomSign
+random.int = randomInt
+random.index = randomIndex
+random.value = randomValue
