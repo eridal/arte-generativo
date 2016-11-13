@@ -10,7 +10,7 @@ function random (min, max) {
     max = min
     min = 0
   }
-  return min + Math.random() * (max - min + 1)
+  return min + Math.random() * (max - min)
 }
 
 /**
@@ -38,7 +38,7 @@ function randomSign () {
  */
 function randomIndex (array) {
   if (array.length > 0) {
-    return randomInt(array.length - 1)
+    return randomInt(array.length)
   }
   throw new Error('randomIndex() from empty array')
 }
