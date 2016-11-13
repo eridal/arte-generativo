@@ -2,34 +2,38 @@
 (function (window) {
 
   function run (delay, update, hasNext) {
+    return new Promise(function (resolve) {
 
-    var start = 0
+      var start = 0
 
-    window.requestAnimationFrame(step)
+      window.requestAnimationFrame(
+        function step (time) {
+          var result
+          var changed = (time - start) > delay
+          if (changed) {
+            start = time
+            result = update()
+          }
 
-    function step (time) {
-      var result;
-      var changed = (time - start) > delay
-      if (changed) {
-        start = time
-        result = update()
-      }
-
-      if (!changed || hasNext(result)) {
-        window.requestAnimationFrame(step)
-      }
-    }
+          if (!changed || hasNext(result)) {
+            window.requestAnimationFrame(step)
+          } else {
+            resolve()
+          }
+        }
+      )
+    })
   }
-
 
   /**
    * Ejecuta la animacion indefinidamente
    *
    * @param number delay
    * @param function(boolean, number) update
+   * @return Promise
    */
   window.animate = function animate (delay, update) {
-    run(delay, update, function () {
+    return run(delay, update, function () {
       return true
     })
   }
@@ -39,9 +43,10 @@
    *
    * @param number delay
    * @param function(boolean, number) update
+   * @return Promise
    */
   window.animate.until = function (delay, update) {
-    run(delay, update, function (result) {
+    return run(delay, update, function (result) {
       return result
     })
   }
@@ -51,9 +56,10 @@
    *
    * @param number delay
    * @param function(boolean, number) update
+   * @return Promise
    */
   window.animate.while = function (delay, update) {
-    run(delay, update, function (result) {
+    return run(delay, update, function (result) {
       return !result
     })
   }
